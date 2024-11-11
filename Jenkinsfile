@@ -11,7 +11,7 @@ pipeline {
             steps {
                 script {
                     // Build the Docker image
-                    sh "sudo docker build -t exampleapp:v18 ."
+                    sh "docker build -t exampleapp:v18 ."
                 }
             }
         }
@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     // Run the Docker container
-                    sh "sudo docker run -d -p 8501:8501 exampleapp:v18"
+                    sh "docker run -d -p 8501:8501 exampleapp:v18"
                 }
             }
         }
