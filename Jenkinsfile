@@ -33,7 +33,7 @@ pipeline {
         cleanup {
             // Cleanup: Stop and remove any running containers with this image
             script {
-                sh "docker ps -q --filter ancestor=${DOCKER_IMAGE} | xargs -r docker stop"
+                sh "docker ps -q --filter ancestor=exampleapp:v18 | xargs -r docker stop"
             }
         }
     }
