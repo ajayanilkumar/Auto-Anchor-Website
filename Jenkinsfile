@@ -1,16 +1,9 @@
 pipeline {
     agent any
-
-    environment {
-        DOCKER_IMAGE = 'exampleapp:v18'
-        REPO_URL = 'https://github.com/ajayanilkumar/Auto-Anchor-Website.git' // Replace with your GitHub repo URL
-    }
-
     stages {
-        stage('Checkout') {
+        stage('Clone Repo') {
             steps {
-                // Checkout the GitHub repository
-                git branch: 'main', url: env.REPO_URL
+                checkout scm
             }
         }
 
@@ -18,7 +11,7 @@ pipeline {
             steps {
                 script {
                     // Build the Docker image
-                    sh "docker build -t ${DOCKER_IMAGE} ."
+                    sh "sudo docker build -t exampleapp:v18 ."
                 }
             }
         }
@@ -27,7 +20,7 @@ pipeline {
             steps {
                 script {
                     // Run the Docker container
-                    sh "docker run -d -p 8501:8501 ${DOCKER_IMAGE}"
+                    sh "sudo docker run -d -p 8501:8501 exampleapp:v18"
                 }
             }
         }
