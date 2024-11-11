@@ -11,7 +11,7 @@ pipeline {
             steps {
                 script {
                     // Build the Docker image
-                    sh "docker build -t exampleapp:v18 ."
+                    sh "docker build -t exampleapp:v35 ."
                 }
             }
         }
