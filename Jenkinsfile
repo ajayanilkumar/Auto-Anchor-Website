@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     // Run the Docker container
-                    sh "docker run -d -p 8501:8501 exampleapp:v18"
+                    sh "docker run -d -p 8501:8501 exampleapp:v35"
                 }
             }
         }
