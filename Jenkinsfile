@@ -25,16 +25,4 @@ pipeline {
             }
         }
     }
-
-    post {
-        always {
-            echo "Pipeline finished."
-        }
-        cleanup {
-            // Cleanup: Stop and remove any running containers with this image
-            script {
-                sh "docker ps -q --filter ancestor=exampleapp:v18 | xargs -r docker stop"
-            }
-        }
-    }
 }
