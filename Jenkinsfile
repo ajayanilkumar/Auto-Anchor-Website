@@ -11,7 +11,11 @@ pipeline {
             steps {
                 script {
                     // Build the Docker image
-                    sh "docker build -t exampleapp:v35 ."
+                    if (isUnix()) {
+                        sh "docker build -t exampleapp:v35 ."
+                    } else {
+                        bat "docker build -t exampleapp:v35 ."
+                    }
                 }
             }
         }
@@ -20,7 +24,11 @@ pipeline {
             steps {
                 script {
                     // Run the Docker container
-                    sh "docker run -d -p 8501:8501 exampleapp:v35"
+                    if (isUnix()) {
+                        sh "docker run -d -p 8501:8501 exampleapp:v35"
+                    } else {
+                        bat "docker run -d -p 8501:8501 exampleapp:v35"
+                    }
                 }
             }
         }
