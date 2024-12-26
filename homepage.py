@@ -1,12 +1,10 @@
 import json
 import flask
 import streamlit as st
-import altair
 
 
 # App Header
 st.set_page_config(page_title="Auto Anchor", page_icon="🚀", layout="centered")
-# st.image(logo, width=100)
 st.title("Welcome to Auto Anchor 🚀")
 st.subheader("Your DevOps Automation Partner for Streamlit Deployments")
 
