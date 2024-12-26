@@ -18,9 +18,6 @@ st.write("🔹 **Automated Requirements**: Detects dependencies and builds `requ
 st.write("🔹 **Dockerfile Generation**: Quickly creates a Dockerfile tailored to your app’s setup.")
 st.write("🔹 **Folder-Driven Automation**: Just give the folder, and Auto Anchor does the rest!")
 
-# Add Images
-# st.image(automation_image, caption="Automate Streamlit Deployments with Auto Anchor", use_column_width=True)
-
 # Call-to-Action
 st.markdown("## Get Started Today!")
 st.write("Start using Auto Anchor to simplify your Streamlit deployments. Experience DevOps without the hassle.")
