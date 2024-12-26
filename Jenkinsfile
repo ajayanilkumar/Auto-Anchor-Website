@@ -1,28 +1,52 @@
 pipeline {
     agent any
+
+    environment {
+        AWS_REGION = "us-east-1"
+        ECR_REPO_NAME = "streamlit-app"
+        IMAGE_TAG = "${env.BUILD_NUMBER}"
+    }
+
     stages {
-        stage('Clone Repo') {
+        stage('Checkout') {
             steps {
-                checkout scm
+                git branch: 'main', url: 'https://github.com/<your-username>/<your-repo>.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Build the Docker image
-                    sh "docker build -t exampleapp:v18 ."
+                    dockerImage = docker.build("${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}:${IMAGE_TAG}")
                 }
             }
         }
 
-        stage('Run Streamlit Application') {
+        stage('Push to ECR') {
             steps {
                 script {
-                    // Run the Docker container
-                    sh "docker run -d -p 8501:8501 exampleapp:v18"
+                    sh '''
+                    aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin ${AWS_REGION}.amazonaws.com
+                    docker push ${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}:${IMAGE_TAG}
+                    '''
                 }
             }
+        }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    sh '''
+                    docker run -d -p 8501:8501 ${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}:${IMAGE_TAG}
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "Pipeline completed"
         }
     }
 }
