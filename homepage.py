@@ -1,7 +1,6 @@
 import json
 import flask
 import streamlit as st
-import altair
 
 
 # App Header
