@@ -3,9 +3,6 @@ import flask
 import streamlit as st
 import altair
 
-# Load images (replace with actual image paths or URLs)
-# logo = Image.open("path_to_logo.png")
-# automation_image = Image.open("path_to_automation_image.png")
 
 # App Header
 st.set_page_config(page_title="Auto Anchor", page_icon="🚀", layout="centered")
