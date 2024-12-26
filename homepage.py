@@ -19,5 +19,7 @@ st.write("🔹 **Folder-Driven Automation**: Just give the folder, and Auto Anch
 # Call-to-Action
 st.markdown("## Get Started Today!")
 st.write("Start using Auto Anchor to simplify your Streamlit deployments. Experience DevOps without the hassle.")
+st.button("Try Auto Anchor Now")
+
 
 
