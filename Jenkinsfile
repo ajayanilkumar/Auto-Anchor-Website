@@ -2,8 +2,7 @@ pipeline {
     agent any
 
     environment {
-        AWS_REGION = "us-east-1"
-        ECR_REPO_NAME = "streamlit-app"
+        IMAGE_NAME = "streamlit-app"
         IMAGE_TAG = "${env.BUILD_NUMBER}"
     }
 
@@ -17,27 +16,16 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    dockerImage = docker.build("${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}:${IMAGE_TAG}")
+                    dockerImage = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
                 }
             }
         }
 
-        stage('Push to ECR') {
+        stage('Run Docker Container') {
             steps {
                 script {
                     sh '''
-                    aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin ${AWS_REGION}.amazonaws.com
-                    docker push ${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}:${IMAGE_TAG}
-                    '''
-                }
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                script {
-                    sh '''
-                    docker run -d -p 8501:8501 ${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}:${IMAGE_TAG}
+                    docker run -d -p 8501:8501 ${IMAGE_NAME}:${IMAGE_TAG}
                     '''
                 }
             }
